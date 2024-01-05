@@ -33,3 +33,9 @@ This repo contains multiple tools to help with web stuff without installing 3 fu
 	Typescript library to validate recaptcha tokens severside. Because calling fetch directly is not noice unuff.
 
 	[📦 npm package](https://www.npmjs.com/package/@maddsua/captcha-server)
+
+- ## Cloudflare Mailchannels API
+	
+	TypeScript API for Mailchannels on Cloudflare Workers
+
+	[📦 npm package](https://www.npmjs.com/package/@maddsua/cf-mailchannels-api)
