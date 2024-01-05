@@ -2,7 +2,7 @@
 	"type": "module",
 	"name": "@maddsua/captcha-server",
 	"description": "server-side stuff to validate CAPTCHAs",
-	"version": "4.4.3",
+	"version": "4.4.4",
 	"license": "MIT",
 	"main": "./dist/server.js",
 	"types": "./dist/server.d.ts",
