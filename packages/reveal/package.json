@@ -8,8 +8,8 @@
 	"types": "./dist/index.d.ts",
 	"scripts": {
 		"build": "tsc",
-		"build:test:client": "esbuild test/browser.ts --outfile=test/browser.js --bundle --format=esm",
-		"dev": "esbuild test/browser.ts --outfile=test/browser.js --bundle --watch"
+		"build:test:client": "esbuild tests/browser.ts --outfile=tests/.temp/browser.js --bundle --format=esm",
+		"dev": "esbuild tests/browser.ts --outfile=tests/.temp/browser.js --bundle --watch"
 	},
 	"devDependencies": {
 		"esbuild": "^0.18.6",
