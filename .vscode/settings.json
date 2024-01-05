@@ -2,6 +2,7 @@
 	"deno.enable": true,
 	"deno.lint": false,
 	"deno.enablePaths": [
-		"packages/captcha-server/mod.ts"
+		"packages/captcha-server/mod.ts",
+		"packages/reveal/tests/context.test.ts"
 	]
 }

@@ -1,5 +1,8 @@
 # npm garbage
 node_modules/
 *.tgz
-**/dist
 package-lock.json
+
+# build and dev artifacts
+**/dist
+**/.temp

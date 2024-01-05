@@ -1,0 +1,21 @@
+{
+	"type": "module",
+	"name": "@maddsua/reveal",
+	"version": "4.3.1",
+	"description": "Transitions library. Sort of.",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"build:test:client": "esbuild tests/client.init.ts --outfile=tests/.temp/client.js --bundle --format=esm",
+		"dev": "esbuild tests/client.init.ts --outfile=tests/.temp/client.js --bundle --watch"
+	},
+	"devDependencies": {
+		"esbuild": "^0.18.6",
+		"typescript": "^5.1.3"
+	},
+	"files": [
+		"dist"
+	]
+}
