@@ -1,4 +1,4 @@
-import { validateReCaptcha } from "./lib/server.ts";
+import { validateReCaptcha } from "./lib/index.ts";
 
 export {
 	validateReCaptcha
