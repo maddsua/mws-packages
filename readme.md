@@ -21,3 +21,15 @@ This repo contains multiple tools to help with web stuff without installing 3 fu
 	It just works as a remote console and is handy in case you're a cheapass and want to save Cloudflare Workers logs on the free plan 💀.
 
 	[📦 npm package](https://www.npmjs.com/package/@maddsua/logpush-client)
+
+- ## Captcha client
+	
+	Provides a nice way to load and execute recaptcha in a browser
+
+	[📦 npm package](https://www.npmjs.com/package/@maddsua/captcha-client)
+
+- ## Captcha server
+	
+	Typescript library to validate recaptcha tokens severside. Because calling fetch directly is not noice unuff.
+
+	[📦 npm package](https://www.npmjs.com/package/@maddsua/captcha-server)
