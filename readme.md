@@ -1,8 +1,16 @@
 This repo contains multiple tools to help with web stuff without installing 3 fucking hundred tons of dependency packages.
 
+All packages here are under MIT license.
+
 ---
 
 ## NPM Packages
+
+- ## ES State
+
+	Reactive state refs for vanilla JS/TS. Just 'cause I don't like nanostores
+
+	[📦 npm link](https://www.npmjs.com/package/@maddsua/maddsua/es-state)
 
 - ## Analytics Client
 
