@@ -7,7 +7,7 @@ const hashString = async (message: string) => {
 	return btoa(String.fromCodePoint(...new Uint8Array(hashBytes)));
 };
 
-const tokenSecurityLevels = {
+const tokenLengthPresets = {
 	'test': 4,
 	'humane': 8,
 	'willdo': 16,
@@ -16,8 +16,8 @@ const tokenSecurityLevels = {
 	'nowayinhelluguessinthis': 128
 };
 
-export const generateToken = (security?: keyof typeof tokenSecurityLevels) => {
-	const generateLength = (security ? tokenSecurityLevels[security] : 24 )|| 24;
+export const generateToken = (length?: keyof typeof tokenLengthPresets | number) => {
+	const generateLength = (typeof length === 'string' ? tokenLengthPresets[length] : length) || 24;
 	const randomarray = new Uint8Array(generateLength + 3);
 	crypto.getRandomValues(randomarray);
 	return btoa(String.fromCodePoint(...randomarray)).slice(0, generateLength);
