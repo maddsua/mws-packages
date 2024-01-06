@@ -6,3 +6,4 @@ package-lock.json
 # build and dev artifacts
 **/dist
 **/.temp
+**/.cache
