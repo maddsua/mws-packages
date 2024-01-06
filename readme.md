@@ -39,3 +39,10 @@ This repo contains multiple tools to help with web stuff without installing 3 fu
 	TypeScript API for Mailchannels on Cloudflare Workers
 
 	[📦 npm package](https://www.npmjs.com/package/@maddsua/cf-mailchannels-api)
+
+
+- ## Reveal
+	
+	Reveal-on-scroll animations using motion parameters
+
+	[📦 npm package](https://www.npmjs.com/package/@maddsua/reveal)
