@@ -3,6 +3,7 @@
 	"deno.lint": false,
 	"deno.enablePaths": [
 		"packages/captcha-server/mod.ts",
-		"packages/reveal/tests/context.test.ts"
+		"packages/reveal/tests/context.test.ts",
+		"packages/auth"
 	]
 }
