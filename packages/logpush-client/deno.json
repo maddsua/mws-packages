@@ -1,0 +1,6 @@
+{
+	"tasks": {
+		"token:pack": "deno run -A cli/packCredentials.ts",
+		"test": "deno run -A test/deno.test.ts"
+	}
+}
