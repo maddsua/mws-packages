@@ -70,5 +70,5 @@ export const fromRequest = async <T extends TypedRequest<any, any, any>> (reques
 
 const restored = await fromRequest<RequestType>(new Request(''));
 
-restored.data?.query;
-restored.headers?.["x-captcha"];
+restored.data.query;
+restored.headers["x-captcha"];
