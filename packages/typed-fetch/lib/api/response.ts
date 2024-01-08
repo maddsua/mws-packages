@@ -6,16 +6,16 @@ export class TypedResponse<
 > {
 
 	data: D;
-	headers?: H;
-	status?: S;
+	headers: H;
+	status: S;
 
 	constructor(data: D, init?: {
 		headers?: H;
 		status?: S;
 	}) {
 		this.data = data;
-		this.headers = init?.headers;
-		this.status = init?.status;
+		this.headers = init?.headers as H;
+		this.status = init?.status as S;
 	}
 
 	toResponse(): Response {
