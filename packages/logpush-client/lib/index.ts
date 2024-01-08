@@ -13,16 +13,21 @@ interface ClientFingerprint {
 	request_id?: string | null;
 };
 
-interface EAConfig {
+interface Credentials {
 	remote: string;
 	token: string;
 	app_id: string;
-	api_name?: string;
-	reflectInLogs?: boolean;
 };
 
-interface EAContext {
-	fingerprint?: ClientFingerprint;	
+interface EventAggregatorContext {
+	credentials: Credentials;
+	api_name?: string;
+	reflectInLogs?: boolean;
+	fingerprint?: ClientFingerprint;
+};
+
+interface LogpushInit extends Omit<EventAggregatorContext, 'credentials'> {
+	credentials: Credentials | string;
 };
 
 interface PushEventProps extends Omit<EventItem, 'message'> {
@@ -36,12 +41,15 @@ const apiPaths = {
 export class EventAggregator {
 
 	data: EventItem[] = [];
-	cfg: EAConfig;
-	ctx?: EAContext;
+	ctx: EventAggregatorContext;
 
-	constructor(init: EAConfig, ctxInit?: EAContext) {
-		this.cfg = init;
-		this.ctx = ctxInit;
+	constructor(init: LogpushInit) {
+		this.ctx = Object.assign({}, init, {
+			credentials: typeof init.credentials === 'object' ? init.credentials : (() => {
+				const [remote, token, app_id] = init.credentials.split('.').map(item => atob(item));
+				return { remote, token, app_id };
+			})()
+		});
 	}
 
 	push(event: PushEventProps) {
@@ -51,7 +59,7 @@ export class EventAggregator {
 
 		this.data.push({ type, message, data_dump });
 
-		if (this.cfg.reflectInLogs !== false) {
+		if (this.ctx.reflectInLogs !== false) {
 
 			const consoleIO = console[event.type] || console.log;
 			consoleIO(event.message);
@@ -105,20 +113,20 @@ export class EventAggregator {
 		};
 
 		const payload: InsertRowItem[] = this.data.map(item => Object.assign({
-			app_id: this.cfg.app_id,
-			api: this.cfg.api_name
+			app_id: this.ctx.credentials.app_id,
+			api: this.ctx.api_name
 		}, item, this.ctx?.fingerprint));
 
 		try {
 
-			const remoteUrl = new URL(this.cfg.remote);
+			const remoteUrl = new URL(this.ctx.credentials.remote);
 			remoteUrl.pathname = apiPaths.supabase;
 			remoteUrl.search = '';
 
 			const response = await fetch(remoteUrl, {
 				method: 'POST',
 				headers: {
-					apikey: this.cfg.token,
+					apikey: this.ctx.credentials.token,
 					'content-type': 'application/json'
 				},
 				body: JSON.stringify(payload)
