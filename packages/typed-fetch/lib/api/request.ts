@@ -7,9 +7,9 @@ export class TypedRequest<
 > {
 
 	url: string | URL;
-	headers?: H;
-	data?: D;
-	method?: M;
+	headers: H;
+	data: D;
+	method: M;
 
 	constructor(url: string | URL, init?: {
 		headers?: H;
@@ -17,9 +17,9 @@ export class TypedRequest<
 		method?: M;
 	}) {
 		this.url = url;
-		this.data = init?.data;
-		this.headers = init?.headers;
-		this.method = init?.method;
+		this.data = init?.data as D;
+		this.headers = init?.headers as H;
+		this.method = init?.method as M;
 	}
 
 	toRequest() {
