@@ -14,7 +14,7 @@ export const requestToTyped = async <T extends TypedRequest<any, any, any>> (req
 		method: T['method'];
 	};
 
-	return new TypedRequest('', {
+	return new TypedRequest(request.url, {
 		data: await request.json(),
 		headers: Object.fromEntries(request.headers.entries()),
 		method: request.method
