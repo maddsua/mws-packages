@@ -1,21 +1,25 @@
 import { TypedResponse } from "./response";
 
 export class TypedRequest<
-	D extends object | null = null,
+	D extends object | null | undefined = undefined,
 	H extends Record<string, string> | undefined = undefined,
+	M extends 'POST' | 'GET' | undefined = undefined
 > {
 
 	url: string | URL;
 	headers?: H;
 	data?: D;
+	method?: M;
 
 	constructor(url: string | URL, init?: {
 		headers?: H;
 		data?: D;
+		method?: M;
 	}) {
 		this.url = url;
 		this.data = init?.data;
 		this.headers = init?.headers;
+		this.method = init?.method;
 	}
 
 	toRequest() {
@@ -41,3 +45,9 @@ export class TypedRequest<
 		}) as R;
 	}
 };
+
+export type InferRequest<T extends {
+	data?: object | null;
+	headers?: Record<string, string>;
+	method?: 'POST' | 'GET';
+}> = TypedRequest<T['data'], T['headers'], T['method']>;
