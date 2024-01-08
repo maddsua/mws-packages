@@ -5,23 +5,23 @@ export class TypedResponse<
 	S extends number | undefined = undefined
 > {
 
-	body: D;
+	data: D;
 	headers?: H;
 	status?: S;
 
-	constructor(body: D, init?: {
+	constructor(data: D, init?: {
 		headers?: H;
 		status?: S;
 	}) {
-		this.body = body;
+		this.data = data;
 		this.headers = init?.headers;
 		this.status = init?.status;
 	}
 
 	toResponse(): Response {
-		const body = this.body ? JSON.stringify(this.body) : null;
+		const body = this.data ? JSON.stringify(this.data) : null;
 		const headers = new Headers(this.headers);
-		if (this.body) headers.set('content-type', 'application/json');
+		if (this.data) headers.set('content-type', 'application/json');
 		return new Response(body, { headers, status: this.status });
 	}
 };
