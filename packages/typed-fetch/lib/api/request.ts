@@ -45,9 +45,3 @@ export class TypedRequest<
 		}) as R;
 	}
 };
-
-export type InferRequest<T extends {
-	data?: object | null;
-	headers?: Record<string, string>;
-	method?: 'POST' | 'GET';
-}> = TypedRequest<T['data'], T['headers'], T['method']>;
