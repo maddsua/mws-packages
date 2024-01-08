@@ -26,7 +26,7 @@ interface EventAggregatorContext {
 };
 
 interface LogpushInit extends EventAggregatorContext {
-	creds: LogpushCredentials | string;
+	creds: LogpushCredentials | string | undefined | null;
 };
 
 interface PushEventProps extends Omit<EventItem, 'message'> {
@@ -50,6 +50,8 @@ export class EventAggregator {
 		delete tempctx.creds;
 		this.ctx = tempctx as EventAggregatorContext;
 
+		if (!init.creds) throw new Error(`[logpush setup error]: Logpush credentials are not provided`);
+
 		if (typeof init.creds === 'object') {
 			this.creds = init.creds;
 		} else {
@@ -63,7 +65,7 @@ export class EventAggregator {
 		}
 
 		if (!this.creds.remote.startsWith('http'))
-			throw new Error(`[logpush setup error]: logpush remote must be a valid url`);
+			throw new Error(`[logpush setup error]: Logpush remote must be a valid url`);
 	}
 
 	push(event: PushEventProps) {
