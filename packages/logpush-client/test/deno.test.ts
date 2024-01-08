@@ -6,7 +6,7 @@ const token = Deno.env.get('LOGPUSH_TEST_CREDS');
 if (!token) throw new Error('$LOGPUSH_TEST_CREDS not defined');
 
 const logpush = new EventAggregator({
-	credentials: token,
+	creds: token,
 	api_name: 'test api',
 	reflectInLogs: false
 });
