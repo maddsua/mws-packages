@@ -2,7 +2,6 @@ import "https://deno.land/std@0.210.0/dotenv/load.ts";
 import { EventAggregator } from "../lib/index.ts";
 
 const token = Deno.env.get('LOGPUSH_TEST_CREDS');
-
 if (!token) throw new Error('$LOGPUSH_TEST_CREDS not defined');
 
 const logpush = new EventAggregator({
