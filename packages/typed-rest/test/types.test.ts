@@ -42,7 +42,6 @@ type RequestType = InferRequestType<{
 	headers: {
 		'x-captcha': string;
 	},
-	method: 'GET'
 }>;
 
 const testRequest: RequestType = new TypedRequest('/api', {
@@ -52,7 +51,6 @@ const testRequest: RequestType = new TypedRequest('/api', {
 	headers: {
 		'x-captcha': 'token'
 	},
-	method: 'GET'
 });
 
 const testResult = await testRequest.typedFetch<ApiResponse>();

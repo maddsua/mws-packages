@@ -54,3 +54,9 @@ All packages here are under MIT license.
 	Reveal-on-scroll animations using motion parameters
 
 	[📦 npm link](https://www.npmjs.com/package/@maddsua/reveal)
+
+- ## Typed Rest
+
+	Literally what it sould like - typed Response and Request object to bring type safety to an API without setting up routers and other crap. Just don't fuck up the URLs xD.
+
+	[📦 npm link](https://www.npmjs.com/package/@maddsua/typed-rest)
