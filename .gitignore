@@ -7,3 +7,9 @@ package-lock.json
 **/dist
 **/.temp
 **/.cache
+
+# deno stuff
+deno.lock
+
+# confidentail stuff 💀
+.env
