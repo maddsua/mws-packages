@@ -20,13 +20,13 @@ interface LogpushCredentials {
 };
 
 interface EventAggregatorContext {
-	credentials: LogpushCredentials;
+	creds: LogpushCredentials;
 	api_name?: string;
 	reflectInLogs?: boolean;
 	fingerprint?: ClientFingerprint;
 };
 
-interface LogpushInit extends Omit<EventAggregatorContext, 'credentials'> {
+interface LogpushInit extends Omit<EventAggregatorContext, 'creds'> {
 	creds: LogpushCredentials | string;
 };
 
@@ -45,7 +45,7 @@ export class EventAggregator {
 
 	constructor(init: LogpushInit) {
 		this.ctx = Object.assign({}, init, {
-			credentials: typeof init.creds === 'object' ? init.creds : (() => {
+			creds: typeof init.creds === 'object' ? init.creds : (() => {
 				const [remote, token, app_id] = init.creds.split('.').map(item => atob(item));
 				return { remote, token, app_id };
 			})()
@@ -113,20 +113,20 @@ export class EventAggregator {
 		};
 
 		const payload: InsertRowItem[] = this.data.map(item => Object.assign({
-			app_id: this.ctx.credentials.app_id,
+			app_id: this.ctx.creds.app_id,
 			api: this.ctx.api_name
 		}, item, this.ctx?.fingerprint));
 
 		try {
 
-			const remoteUrl = new URL(this.ctx.credentials.remote);
+			const remoteUrl = new URL(this.ctx.creds.remote);
 			remoteUrl.pathname = apiPaths.supabase;
 			remoteUrl.search = '';
 
 			const response = await fetch(remoteUrl, {
 				method: 'POST',
 				headers: {
-					apikey: this.ctx.credentials.token,
+					apikey: this.ctx.creds.token,
 					'content-type': 'application/json'
 				},
 				body: JSON.stringify(payload)
