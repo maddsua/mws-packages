@@ -5,16 +5,16 @@ export class TypedResponse<
 	S extends number | undefined = undefined
 > {
 
-body: B;
-headers?: H;
-status?: S;
-
-constructor(body: B, init?: {
+	body: B;
 	headers?: H;
 	status?: S;
-}) {
-	this.body = body;
-	this.headers = init?.headers;
-	this.status = init?.status;
-}
+
+	constructor(body: B, init?: {
+		headers?: H;
+		status?: S;
+	}) {
+		this.body = body;
+		this.headers = init?.headers;
+		this.status = init?.status;
+	}
 };
