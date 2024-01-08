@@ -1,6 +1,6 @@
 {
 	"type": "module",
-	"name": "@maddsua/typed-fetch",
+	"name": "@maddsua/typed-rest",
 	"description": "server-side stuff to validate CAPTCHAs",
 	"version": "0.9.0",
 	"license": "MIT",
