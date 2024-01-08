@@ -6,6 +6,8 @@
 		"packages/reveal/tests/context.test.ts",
 		"packages/auth",
 		"packages/logpush-client/cli",
-		"packages/logpush-client/test"
+		"packages/logpush-client/test",
+		"packages/typed-rest/test",
+		"packages/typed-rest/mod.ts"
 	]
 }
