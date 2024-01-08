@@ -1,6 +1,6 @@
 import { TypedResponse } from "../lib/api/response.ts";
 import { TypedRequest } from "../lib/api/request.ts";
-import { InferRequest, requestToTyped } from "../lib/api/infer.ts";
+import { InferRequestType, requestToTyped } from "../lib/api/infer.ts";
 
 const handler = () => {
 
@@ -32,7 +32,7 @@ if (result.status === 200) {
 
 type ApiResponse = ReturnType<typeof handler>;
 
-type RequestType = InferRequest<{
+type RequestType = InferRequestType<{
 	data: {
 		query: string;
 	},
