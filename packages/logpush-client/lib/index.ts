@@ -44,11 +44,15 @@ export class EventAggregator {
 	ctx: EventAggregatorContext;
 
 	constructor(init: LogpushInit) {
+
+		if (typeof init.creds === 'object') {
+			this.ctx = init as EventAggregatorContext;
+			return;
+		}
+
+		const [remote, token, app_id] = init.creds.split('.').map(item => atob(item));		
 		this.ctx = Object.assign({}, init, {
-			creds: typeof init.creds === 'object' ? init.creds : (() => {
-				const [remote, token, app_id] = init.creds.split('.').map(item => atob(item));
-				return { remote, token, app_id };
-			})()
+			creds: { remote, token, app_id }
 		});
 	}
 
