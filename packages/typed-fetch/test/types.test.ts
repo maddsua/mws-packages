@@ -1,6 +1,9 @@
-import { TypedResponse } from "../lib/api/response.ts";
-import { TypedRequest } from "../lib/api/request.ts";
-import { InferRequestType, requestToTyped } from "../lib/api/infer.ts";
+import {
+	TypedResponse,
+	TypedRequest,
+	InferRequestType,
+	requestToTyped
+} from "../mod.ts";
 
 const handler = () => {
 
