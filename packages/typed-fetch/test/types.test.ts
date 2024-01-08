@@ -1,5 +1,5 @@
 import { TypedResponse } from "../lib/api/response.ts";
-import { TypedRequest } from "../lib/api/request.ts";
+import { InferRequest, TypedRequest } from "../lib/api/request.ts";
 
 const handler = () => {
 
@@ -31,10 +31,14 @@ if (result.status === 200) {
 
 type ApiResponse = ReturnType<typeof handler>;
 
-type RequestType = TypedRequest<{
-	query: string;
-}, {
-	'x-captcha': string;
+type RequestType = InferRequest<{
+	data: {
+		query: string;
+	},
+	headers: {
+		'x-captcha': string;
+	},
+	method: 'GET'
 }>;
 
 const testRequest: RequestType = new TypedRequest('/api', {
@@ -43,7 +47,8 @@ const testRequest: RequestType = new TypedRequest('/api', {
 	},
 	headers: {
 		'x-captcha': 'token'
-	}
+	},
+	method: 'GET'
 });
 
 const testResult = await testRequest.typedFetch<ApiResponse>();
