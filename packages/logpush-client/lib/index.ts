@@ -13,21 +13,21 @@ interface ClientFingerprint {
 	request_id?: string | null;
 };
 
-interface Credentials {
+interface LogpushCredentials {
 	remote: string;
 	token: string;
 	app_id: string;
 };
 
 interface EventAggregatorContext {
-	credentials: Credentials;
+	credentials: LogpushCredentials;
 	api_name?: string;
 	reflectInLogs?: boolean;
 	fingerprint?: ClientFingerprint;
 };
 
 interface LogpushInit extends Omit<EventAggregatorContext, 'credentials'> {
-	credentials: Credentials | string;
+	creds: LogpushCredentials | string;
 };
 
 interface PushEventProps extends Omit<EventItem, 'message'> {
@@ -45,8 +45,8 @@ export class EventAggregator {
 
 	constructor(init: LogpushInit) {
 		this.ctx = Object.assign({}, init, {
-			credentials: typeof init.credentials === 'object' ? init.credentials : (() => {
-				const [remote, token, app_id] = init.credentials.split('.').map(item => atob(item));
+			credentials: typeof init.creds === 'object' ? init.creds : (() => {
+				const [remote, token, app_id] = init.creds.split('.').map(item => atob(item));
 				return { remote, token, app_id };
 			})()
 		});
