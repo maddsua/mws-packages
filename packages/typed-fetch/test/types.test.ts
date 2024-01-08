@@ -53,7 +53,6 @@ const testRequest: RequestType = new TypedRequest('/api', {
 
 const testResult = await testRequest.typedFetch<ApiResponse>();
 
-
 export const fromRequest = async <T extends TypedRequest<any, any, any>> (request: Request) => {
 
 	interface TypedInit {
@@ -71,5 +70,5 @@ export const fromRequest = async <T extends TypedRequest<any, any, any>> (reques
 
 const restored = await fromRequest<RequestType>(new Request(''));
 
-restored.data?.query
-restored.headers?.["x-captcha"]
+restored.data?.query;
+restored.headers?.["x-captcha"];
