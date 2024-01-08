@@ -1,5 +1,5 @@
-import { TypedRequest, type InferRequestType, requestToTyped } from "./api/request";
-import { TypedResponse } from "./api/response";
+import { TypedRequest, type InferRequestType, requestToTyped } from "./api/request.js";
+import { TypedResponse } from "./api/response.js";
 
 export {
 	TypedRequest,
