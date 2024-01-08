@@ -1,5 +1,6 @@
 import { TypedResponse } from "../lib/api/response.ts";
-import { InferRequest, TypedRequest } from "../lib/api/request.ts";
+import { TypedRequest } from "../lib/api/request.ts";
+import { InferRequest, requestToTyped } from "../lib/api/infer.ts";
 
 const handler = () => {
 
@@ -53,22 +54,7 @@ const testRequest: RequestType = new TypedRequest('/api', {
 
 const testResult = await testRequest.typedFetch<ApiResponse>();
 
-export const fromRequest = async <T extends TypedRequest<any, any, any>> (request: Request) => {
-
-	interface TypedInit {
-		data: T['data'];
-		headers: T['headers'];
-		method: T['method'];
-	};
-
-	return new TypedRequest('', {
-		data: await request.json(),
-		headers: Object.fromEntries(request.headers.entries()),
-		method: request.method
-	} as TypedInit);
-};
-
-const restored = await fromRequest<RequestType>(new Request(''));
+const restored = await requestToTyped<RequestType>(new Request(''));
 
 restored.data.query;
 restored.headers["x-captcha"];
