@@ -15,7 +15,7 @@ const handler = () => {
 	}
 
 	return new TypedResponse({
-		data: 123
+		value: 123
 	}, {
 		headers: {
 			'x-test': 'test'
@@ -27,7 +27,7 @@ const handler = () => {
 const result = handler();
 
 if (result.status === 200) {
-	result.data.data
+	result.data.value
 }
 
 type ApiResponse = ReturnType<typeof handler>;
