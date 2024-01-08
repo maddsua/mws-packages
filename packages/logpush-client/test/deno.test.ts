@@ -13,3 +13,19 @@ const logpush = new EventAggregator({
 logpush.log('test event');
 
 console.log(logpush);
+
+/*
+const logpush2 = new EventAggregator({
+	creds: {
+		remote: 'https://api.example.com/push',
+		token: 'test token',
+		app_id: 'test app 2'
+	},
+	api_name: 'test api 2',
+	reflectInLogs: false
+});
+
+logpush2.log('test event');
+
+console.log(logpush2);
+*/
