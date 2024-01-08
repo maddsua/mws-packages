@@ -10,7 +10,7 @@ All packages here are under MIT license.
 
 	Reactive state refs for vanilla JS/TS. Just 'cause I don't like nanostores
 
-	[📦 npm link](https://www.npmjs.com/package/@maddsua/maddsua/es-state)
+	[📦 npm link](https://www.npmjs.com/package/@maddsua/es-state)
 
 - ## Analytics Client
 
