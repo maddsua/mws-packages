@@ -17,4 +17,11 @@ export class TypedResponse<
 		this.headers = init?.headers;
 		this.status = init?.status;
 	}
+
+	toResponse(): Response {
+		const body = this.body ? JSON.stringify(this.body) : null;
+		const headers = new Headers(this.headers);
+		if (this.body) headers.set('content-type', 'application/json');
+		return new Response(body, { headers, status: this.status });
+	}
 };
