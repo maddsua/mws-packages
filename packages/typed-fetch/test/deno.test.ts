@@ -1,16 +1,17 @@
 import { TypedResponse } from "../lib/api/response.ts";
 
-type ApiResponseType = TypedResponse<{
-	data: number;
-}, {
-	'x-test': 'test'
-}, 200> | TypedResponse<{
-	error_text: string;
-}, {
-	'x-test': 'test'
-}, 400>;
+const handler = () => {
 
-const handler = (): ApiResponseType => {
+	const variable = 2;
+
+	if (!variable) {
+		return new TypedResponse({
+			error_text: 'fuuuuck'
+		}, {
+			status: 400
+		});
+	}
+
 	return new TypedResponse({
 		data: 123
 	}, {
@@ -20,3 +21,11 @@ const handler = (): ApiResponseType => {
 		status: 200
 	});
 };
+
+const result = handler();
+
+if (result.status === 200) {
+	result.body.data
+}
+
+type ApiResponse = ReturnType<typeof handler>;
