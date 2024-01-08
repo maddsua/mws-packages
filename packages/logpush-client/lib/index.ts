@@ -20,13 +20,12 @@ interface LogpushCredentials {
 };
 
 interface EventAggregatorContext {
-	creds: LogpushCredentials;
 	api_name?: string;
 	reflectInLogs?: boolean;
 	fingerprint?: ClientFingerprint;
 };
 
-interface LogpushInit extends Omit<EventAggregatorContext, 'creds'> {
+interface LogpushInit extends EventAggregatorContext {
 	creds: LogpushCredentials | string;
 };
 
@@ -42,18 +41,29 @@ export class EventAggregator {
 
 	data: EventItem[] = [];
 	ctx: EventAggregatorContext;
+	creds: LogpushCredentials | null;
 
 	constructor(init: LogpushInit) {
 
+		//	copy all keys except for creds
+		const tempctx = structuredClone(init) as Partial<LogpushInit>;
+		delete tempctx.creds;
+		this.ctx = tempctx as EventAggregatorContext;
+
 		if (typeof init.creds === 'object') {
-			this.ctx = init as EventAggregatorContext;
-			return;
+			this.creds = init.creds;
+		} else {
+			const [remote, token, app_id] = init.creds.split('.').map(item => atob(item));
+			this.creds = { remote, token, app_id };
 		}
 
-		const [remote, token, app_id] = init.creds.split('.').map(item => atob(item));		
-		this.ctx = Object.assign({}, init, {
-			creds: { remote, token, app_id }
-		});
+		for (const key in this.creds) {
+			if (!this.creds[key as keyof LogpushCredentials].trim().length)
+				throw new Error(`[logpush setup error]: Credentials component "${key}" as empty or absent`);
+		}
+
+		if (!this.creds.remote.startsWith('http'))
+			throw new Error(`[logpush setup error]: logpush remote must be a valid url`);
 	}
 
 	push(event: PushEventProps) {
@@ -109,7 +119,7 @@ export class EventAggregator {
 
 	async flush() {
 
-		if (!this.data.length) return;
+		if (!this.data.length || !this.creds) return;
 
 		interface InsertRowItem extends EventItem, ClientFingerprint {
 			app_id: string;
@@ -117,20 +127,20 @@ export class EventAggregator {
 		};
 
 		const payload: InsertRowItem[] = this.data.map(item => Object.assign({
-			app_id: this.ctx.creds.app_id,
+			app_id: this.creds!.app_id,
 			api: this.ctx.api_name
 		}, item, this.ctx?.fingerprint));
 
 		try {
 
-			const remoteUrl = new URL(this.ctx.creds.remote);
+			const remoteUrl = new URL(this.creds.remote);
 			remoteUrl.pathname = apiPaths.supabase;
 			remoteUrl.search = '';
 
 			const response = await fetch(remoteUrl, {
 				method: 'POST',
 				headers: {
-					apikey: this.ctx.creds.token,
+					apikey: this.creds.token,
 					'content-type': 'application/json'
 				},
 				body: JSON.stringify(payload)
