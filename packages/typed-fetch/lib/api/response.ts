@@ -1,15 +1,15 @@
 
 export class TypedResponse<
-	B extends object | null = null,
+	D extends object | null = null,
 	H extends Record<string, string> | undefined = undefined,
 	S extends number | undefined = undefined
 > {
 
-	body: B;
+	body: D;
 	headers?: H;
 	status?: S;
 
-	constructor(body: B, init?: {
+	constructor(body: D, init?: {
 		headers?: H;
 		status?: S;
 	}) {
