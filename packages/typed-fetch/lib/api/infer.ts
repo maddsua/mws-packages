@@ -1,6 +1,6 @@
 import { TypedRequest } from "./request";
 
-export type InferRequest<T extends {
+export type InferRequestType<T extends {
 	data?: object | null;
 	headers?: Record<string, string>;
 	method?: 'POST' | 'GET';
