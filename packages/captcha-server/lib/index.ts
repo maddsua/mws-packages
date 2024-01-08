@@ -46,15 +46,11 @@ export const validateReCaptcha = async (params: ValidationParams): Promise<Valid
 
 		if (!result.success) throw new Error(result['error-codes']?.join(', '));
 
-		if (result.score && result.score < scoreThreshold) {
+		if (typeof result.score === 'number' && result.score < scoreThreshold)
 			throw new Error(`Score too low (${result.score}/${scoreThreshold})`);
-		}
 
-		return {
-			success: true,
-			score: result.score
-		};
-		
+		return { success: true, score: result.score };
+
 	} catch (error) {
 		return {
 			success: false,
