@@ -1,4 +1,5 @@
 import { TypedResponse } from "../lib/api/response.ts";
+import { TypedRequest } from "../lib/api/request.ts";
 
 const handler = () => {
 
@@ -25,7 +26,24 @@ const handler = () => {
 const result = handler();
 
 if (result.status === 200) {
-	result.body.data
+	result.data.data
 }
 
 type ApiResponse = ReturnType<typeof handler>;
+
+type RequestType = TypedRequest<{
+	query: string;
+}, {
+	'x-captcha': string;
+}>;
+
+const testRequest: RequestType = new TypedRequest('/api', {
+	data: {
+		query: 'data'
+	},
+	headers: {
+		'x-captcha': 'token'
+	}
+});
+
+const testResult = await testRequest.typedFetch<ApiResponse>();
