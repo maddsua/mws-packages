@@ -3,7 +3,6 @@ import { TypedRequest, TypedResponse, serializeResponseObject } from "../lib/res
 import type { RouterSchema, TypedRouter } from "../lib/router.ts";
 import { FetchSchema, TypedResponseInit } from "../lib/schema.ts";
 import { makeErrorResponse } from "./responses.ts";
-import { getUrlStringPath, trimProcedureName } from "./url.ts";
 
 interface InstanceInitData {
 	routerURL: string | URL;
@@ -27,12 +26,18 @@ export class TypedFetchServer<T extends RouterSchema<Record<string, FetchSchema<
 			instancePath.slice(0, -1) : (instancePath.length > 0 ?
 				instancePath : '/');
 
-		this.routes = routes;
+		this.routes = {} as typeof this.routes;
+
+		for (const key in routes) {
+			const routePath = key.slice(key.startsWith('/') ? 1 : 0, key.endsWith('/') ? -1 : undefined);
+			this.routes[routePath as Extract<keyof T, string>] = routes[key];
+		}
 	}
 
 	async handle(request: Request, context: C): Promise<InvocationResult> {
 
-		const requestPath = getUrlStringPath(request.url);
+		const requestPath = request.url.replace(/^[\w\d]+:\/\/([\w\d\-\_]+\.)*[\w\d]+(\:\d+)?\//, '/');
+
 		if (!requestPath.startsWith(this.basePath)) {
 			return {
 				response: makeErrorResponse('wrong base path', ErrorCodes.InvalidPath),
@@ -41,7 +46,7 @@ export class TypedFetchServer<T extends RouterSchema<Record<string, FetchSchema<
 		}
 		
 		const procedurePath = requestPath.slice(this.basePath.length);
-		const procedureName = trimProcedureName(procedurePath);
+		const procedureName = procedurePath.slice(procedurePath.startsWith('/') ? 1 : 0, procedurePath.endsWith('/') ? -1 : undefined);
 
 		const procedureCtx = this.routes[procedureName];
 		if (!procedureCtx) {

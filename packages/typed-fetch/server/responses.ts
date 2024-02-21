@@ -1,4 +1,4 @@
-import { ErrorCodes, type ErrorResponse, errorCodeHeader } from "../lib/api.ts";
+import { ErrorCodes, type ErrorResponse, errorCodeHeader, TypedFetchAPI_ID } from "../lib/api.ts";
 
 const errorCodeMap: Record<ErrorCodes, number> = {
 	[ErrorCodes.InvalidPath]: 400,
@@ -17,7 +17,8 @@ export const makeErrorResponse = (message: string, code: ErrorCodes) => {
 		status: errorCodeMap[code] || 400,
 		headers: {
 			'content-type': 'application/json',
-			[errorCodeHeader]: errorCodeMap[code].toString()
+			[errorCodeHeader]: errorCodeMap[code].toString(),
+			[TypedFetchAPI_ID.header]: TypedFetchAPI_ID.value
 		}
 	});
 };
