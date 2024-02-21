@@ -11,7 +11,7 @@ type EnvValueTypeToType<T extends TypedEnvVariableCtx['type']> = T extends 'stri
 	T extends 'number' ? number :
 	T extends 'boolean' ? boolean :
 	T extends 'object' ? object :
-	T extends 'extended-string' ? string[] :
+	T extends 'comma-separated' ? string[] :
 	string;
 
 type TypedEnvSchema = Record<string, TypedEnvVariableCtx>;
