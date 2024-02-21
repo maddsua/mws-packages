@@ -1,7 +1,11 @@
 import { type ErrorResponse, errorCodeHeader, ProcedureError, ErrorCodes, TypedFetchAPI_ID } from "../lib/api.ts";
 import type { FetchSchema, TypedRequestInit } from "../lib/schema.ts";
 
-const unwrapResponse = async <T extends FetchSchema<any>> (response: Response): Promise<T['response']> => {
+export interface ResponseMetadata {
+	ok: boolean;
+};
+
+const unwrapResponse = async <T extends FetchSchema<any>> (response: Response): Promise<T['response'] & ResponseMetadata> => {
 
 	const contentIsJSON = response.headers.get('content-type')?.toLowerCase()?.includes('json');
 	const responseData = contentIsJSON ? await response.json().catch(() => null) : null;
@@ -10,7 +14,8 @@ const unwrapResponse = async <T extends FetchSchema<any>> (response: Response): 
 	return {
 		data: responseData,
 		headers: Object.fromEntries(response.headers.entries()),
-		status: response.status
+		status: response.status,
+		ok: response.ok
 	};
 };
 

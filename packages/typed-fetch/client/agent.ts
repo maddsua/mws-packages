@@ -1,13 +1,13 @@
 import type { RouterSchema } from "../lib/router.ts";
 import type { FetchSchema } from "../lib/schema.ts";
 import type { TypedRequestInit } from "../lib/schema.ts";
-import { typedFetch } from "./fetch.ts";
+import { type ResponseMetadata, typedFetch } from "./fetch.ts";
 
 interface AgentConfig {
 	endpoint: string;
 };
 
-type QueryReponse <T extends FetchSchema<any>> = Promise<T['response']>;
+type QueryReponse <T extends FetchSchema<any>> = Promise<T['response'] & ResponseMetadata>;
 type QueryAction <T extends FetchSchema<any>> = T['request'] extends object ? (opts: T['request']) => QueryReponse<T> : () => QueryReponse<T>;
 type RouterQueries <T extends RouterSchema<Record<string, FetchSchema<any>>>> = { [K in keyof T]: QueryAction<T[K]> };
 

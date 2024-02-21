@@ -2,7 +2,7 @@
 	"type": "module",
 	"name": "@maddsua/typed-fetch",
 	"description": "trpc-like package but much smaller",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"license": "MIT",
 	"main": "./mod.ts",
 	"types": "./mod.ts",
