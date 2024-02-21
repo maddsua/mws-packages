@@ -3,10 +3,15 @@
 		"lib": ["DOM", "DOM.Iterable", "ES6", "ESNext"],
 		"allowImportingTsExtensions": true,
 		"target": "ESNext",
-		"rootDir": "lib",
 		"outDir": "dist",
 		"declaration": true,
 		"strict": true
 	},
-	"include": ["lib"],
+	"include": [
+		"lib",
+		"client",
+		"server",
+		"npm-client.ts",
+		"npm-server.ts"
+	],
 }
