@@ -1,6 +1,7 @@
-import { type TypedEnv, createEnv } from "./lib/env.ts";
+import { type TypedEnv, type SchemaType, createEnv } from "./lib/env.ts";
 
 export {
 	TypedEnv,
-	createEnv
+	SchemaType,
+	createEnv,
 }

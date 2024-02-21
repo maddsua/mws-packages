@@ -14,13 +14,13 @@ type EnvValueTypeToType<T extends TypedEnvVariableCtx['type']> = T extends 'stri
 	T extends 'extended-string' ? string[] :
 	string;
 
-export type TypedEnv = Record<string, TypedEnvVariableCtx>;
+export type SchemaType = Record<string, TypedEnvVariableCtx>;
 
-type SchemaType<T extends TypedEnv> = {
+export type TypedEnv<T extends SchemaType> = {
 	[K in keyof T]: T[K]['optional'] extends true ? EnvValueTypeToType<T[K]['type']> | undefined : EnvValueTypeToType<T[K]['type']>;
 };
 
-export const createEnv = <T extends TypedEnv>(schema: T, env: Record<string, string>) => {
+export const createEnv = <T extends SchemaType>(schema: T, env: Record<string, string>) => {
 
 	const result: Record<string, any> = {};
 
@@ -49,5 +49,5 @@ export const createEnv = <T extends TypedEnv>(schema: T, env: Record<string, str
 		}
 	}
 
-	return result as SchemaType<typeof schema>;
+	return result as TypedEnv<typeof schema>;
 };
