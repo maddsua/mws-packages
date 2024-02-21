@@ -55,8 +55,8 @@ All packages here are under MIT license.
 
 	[📦 npm link](https://www.npmjs.com/package/@maddsua/reveal)
 
-- ## Typed Rest
+- ## TypedFetch
 
-	Literally what it sould like - typed Response and Request object to bring type safety to an API without setting up routers and other crap. Just don't fuck up the URLs xD.
+	It's kinda like a lite version of TRPC - typed paths and all but without a ton of dependencies and it doesn't do any runtime type checks
 
-	[📦 npm link](https://www.npmjs.com/package/@maddsua/typed-rest)
+	[📦 npm link](https://www.npmjs.com/package/@maddsua/typed-fetch)
