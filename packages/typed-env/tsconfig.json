@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"lib": ["DOM", "DOM.Iterable", "ES6", "ESNext"],
+		"moduleResolution": "Bundler",
+		"module": "ESNext",
+		"target": "ESNext",
+		"outDir": "dist",
+		"declaration": true,
+		"sourceMap": false,
+		"strict": true
+	},
+	"include": [
+		"lib"
+	]
+}
