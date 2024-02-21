@@ -69,7 +69,7 @@ export class TypedFetchServer<T extends RouterSchema<Record<string, FetchSchema<
 			return {
 				response: makeErrorResponse('procedure crashed', ErrorCodes.HandlerError),
 				error: new Error('Handler has crashed'),
-				handlerError: error
+				handlerError: error instanceof Error ? error : new Error((error as Error | null)?.message || JSON.stringify(error))
 			};
 		}
 	}
