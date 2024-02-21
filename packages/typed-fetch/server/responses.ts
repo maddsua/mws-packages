@@ -17,7 +17,7 @@ export const makeErrorResponse = (message: string, code: ErrorCodes) => {
 		status: errorCodeMap[code] || 400,
 		headers: {
 			'content-type': 'application/json',
-			[errorCodeHeader]: errorCodeMap[code].toString(),
+			[errorCodeHeader]: code.toString(),
 			[TypedFetchAPI_ID.header]: TypedFetchAPI_ID.value
 		}
 	});
