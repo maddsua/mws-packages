@@ -1,0 +1,19 @@
+{
+	"type": "module",
+	"name": "@maddsua/typed-env",
+	"description": "ensure that your env is type safe",
+	"version": "1.0.0",
+	"license": "MIT",
+	"main": "./mod.ts",
+	"types": "./mod.ts",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"files": [
+		"lib",
+		"mod.ts"
+	],
+	"devDependencies": {
+		"typescript": "^5.3.3"
+	}
+}

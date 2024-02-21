@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"lib": ["DOM", "DOM.Iterable", "ES6", "ESNext"],
+		"moduleResolution": "Bundler",
+		"module": "ESNext",
+		"target": "ESNext",
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"strict": true
+	},
+	"include": [
+		"lib",
+		"client",
+		"server",
+		"npm-client.ts",
+		"npm-server.ts",
+		"mod.ts"
+	]
+}
