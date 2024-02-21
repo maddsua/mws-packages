@@ -1,7 +1,6 @@
 import { FetchSchema } from "../../lib/schema.ts";
 import { TypedHandler } from "../../lib/handlers.ts";
 import { TypedResponse } from "../../lib/rest.ts";
-import { TypedRouteContext } from "../../lib/router.ts";
 
 type Schema = FetchSchema<{
 	response: {
@@ -12,7 +11,10 @@ type Schema = FetchSchema<{
 	}
 }>;
 
-export const handler: TypedHandler<Schema> = () => {
+export const handler: TypedHandler<Schema, Deno.ServeHandlerInfo> = (request, context) => {
+
+	console.log('Request from:', context.remoteAddr.hostname, new URL(request.url).pathname);
+
 	return new TypedResponse({
 		success: true,
 		message: 'Hello world!'
@@ -21,4 +23,4 @@ export const handler: TypedHandler<Schema> = () => {
 
 export default {
 	handler
-} satisfies TypedRouteContext
+};

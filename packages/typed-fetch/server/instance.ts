@@ -69,8 +69,7 @@ export class TypedFetchServer<T extends RouterSchema<Record<string, FetchSchema<
 			return { response: procResponse };
 
 		} catch (error) {
-
-			console.error('Procedure handler crashed:', (error as Error | null)?.message || error);
+			console.error('Procedure handler crashed:', error);
 			return {
 				response: makeErrorResponse('procedure crashed', ErrorCodes.HandlerError),
 				error: new Error('Handler has crashed'),

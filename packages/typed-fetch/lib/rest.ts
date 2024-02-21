@@ -11,14 +11,16 @@ export class TypedRequest <T extends TypedRequestInit> extends Request {
 	 */
 	async unwrap(): Promise<T> {
 
-		const searchQuery = this.url.replace(/^[^?]*\?/, '').replace(/\#.+$/, '');
 		const query: Record<string, string> = {};
+		
+		if (this.url.includes('?')) {
 
-		if (searchQuery.length) {
+			const searchQuery = this.url.replace(/^[^?]*\?/, '').replace(/\#.+$/, '');
 			const params = searchQuery.split('&');
+
 			for (const item of params) {
 				const [key, value] = item.split('=');
-				if (key.length && value.length) {
+				if (key?.length && value?.length) {
 					query[key] = value;
 				}
 			}
