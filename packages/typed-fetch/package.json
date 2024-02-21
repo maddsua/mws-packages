@@ -1,0 +1,21 @@
+{
+	"type": "module",
+	"name": "@maddsua/typed-fetch",
+	"description": "trpc-like package but much smaller",
+	"version": "1.0.0",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"files": [
+		"dist"
+	],
+	"devDependencies": {
+		"typescript": "^5.3.2"
+	}
+}

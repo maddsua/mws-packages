@@ -8,6 +8,7 @@
 		"packages/logpush-client/cli",
 		"packages/logpush-client/test",
 		"packages/typed-rest/test",
-		"packages/typed-rest/mod.ts"
+		"packages/typed-rest/mod.ts",
+		"packages/typed-fetch"
 	]
 }
