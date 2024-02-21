@@ -4,14 +4,16 @@
 	"description": "ensure that your env is type safe",
 	"version": "1.0.0",
 	"license": "MIT",
-	"main": "./mod.ts",
-	"types": "./mod.ts",
+	"main": "./dist/env.js",
+	"types": "./dist/env.d.ts",
 	"engines": {
 		"node": ">=18.0.0"
 	},
+	"scripts": {
+		"build": "tsc"
+	},
 	"files": [
-		"lib",
-		"mod.ts"
+		"dist"
 	],
 	"devDependencies": {
 		"typescript": "^5.3.3"
