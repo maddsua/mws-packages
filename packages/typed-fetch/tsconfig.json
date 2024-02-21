@@ -14,5 +14,5 @@
 		"server",
 		"npm-client.ts",
 		"npm-server.ts"
-	],
+	]
 }
