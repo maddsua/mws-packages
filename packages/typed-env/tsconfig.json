@@ -4,12 +4,12 @@
 		"moduleResolution": "Bundler",
 		"module": "ESNext",
 		"target": "ESNext",
-		"allowImportingTsExtensions": true,
-		"noEmit": true,
+		"outDir": "dist",
+		"declaration": true,
+		"sourceMap": false,
 		"strict": true
 	},
 	"include": [
-		"lib",
-		"mod.ts"
+		"lib"
 	]
 }
