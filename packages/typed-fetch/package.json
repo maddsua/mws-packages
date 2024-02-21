@@ -4,16 +4,27 @@
 	"description": "trpc-like package but much smaller",
 	"version": "1.0.0",
 	"license": "MIT",
-	"main": "./dist/index.js",
-	"types": "./dist/index.d.ts",
+	"main": "./mod.ts",
+	"types": "./mod.ts",
+	"exports": {
+		"./client": {
+			"import": "./npm-client.ts",
+			"types": "./npm-client.ts"
+		},
+		"./server": {
+			"import": "./npm-server.ts",
+			"types": "./npm-server.ts"
+		}
+	},
 	"engines": {
 		"node": ">=18.0.0"
 	},
-	"scripts": {
-		"build": "tsc"
-	},
 	"files": [
-		"dist"
+		"lib",
+		"client",
+		"server",
+		"npm-client.ts",
+		"npm-server.ts"
 	],
 	"devDependencies": {
 		"typescript": "^5.3.2"
