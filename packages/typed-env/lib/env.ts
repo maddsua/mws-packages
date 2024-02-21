@@ -14,7 +14,7 @@ type EnvValueTypeToType<T extends TypedEnvVariableCtx['type']> = T extends 'stri
 	T extends 'extended-string' ? string[] :
 	string;
 
-export type TypedEnvSchema = Record<string, TypedEnvVariableCtx>;
+type TypedEnvSchema = Record<string, TypedEnvVariableCtx>;
 
 export type TypedEnv<T extends TypedEnvSchema> = {
 	[K in keyof T]: T[K]['optional'] extends true ? EnvValueTypeToType<T[K]['type']> | undefined : EnvValueTypeToType<T[K]['type']>;
