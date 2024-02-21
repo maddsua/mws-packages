@@ -23,7 +23,24 @@ type Schema = FetchSchema<{
 
 export const handler: TypedHandler<Schema> = async (request) => {
 
+	if (request.method != "POST") {
+		return new TypedResponse({
+			error_code: 'invalid request method'
+		}, {
+			status: 400
+		});
+	}
+
 	const { data } = await request.unwrap();
+
+	if (!data) {
+		return new TypedResponse({
+			error_code: 'no order data'
+		}, {
+			status: 400
+		});
+	}
+
 	console.log('Order data:', data);
 
 	return new TypedResponse(null, {
