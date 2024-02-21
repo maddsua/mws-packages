@@ -2,6 +2,7 @@ import { ErrorCodes, type ErrorResponse, errorCodeHeader, TypedFetchAPI_ID } fro
 
 const errorCodeMap: Record<ErrorCodes, number> = {
 	[ErrorCodes.InvalidPath]: 400,
+	[ErrorCodes.InvalidMethod]: 405,
 	[ErrorCodes.ProcedureNotFound]: 404,
 	[ErrorCodes.HandlerError]: 500,
 };

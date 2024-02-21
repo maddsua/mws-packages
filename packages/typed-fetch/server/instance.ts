@@ -18,6 +18,7 @@ export class TypedFetchServer<T extends RouterSchema<Record<string, FetchSchema<
 
 	basePath: string;
 	routes: TypedRouter<T, C>;
+	allowedMethods: Set<string>;
 
 	constructor(init: InstanceInitData, routes: TypedRouter<T, C>) {
 
@@ -32,9 +33,18 @@ export class TypedFetchServer<T extends RouterSchema<Record<string, FetchSchema<
 			const routePath = key.slice(key.startsWith('/') ? 1 : 0, key.endsWith('/') ? -1 : undefined);
 			this.routes[routePath as Extract<keyof T, string>] = routes[key];
 		}
+
+		this.allowedMethods = new Set(["GET", "POST"]);
 	}
 
 	async handle(request: Request, context: C): Promise<InvocationResult> {
+
+		if (!this.allowedMethods.has(request.method)) {
+			return {
+				response: makeErrorResponse(`method "${request.method}" is not allowed`, ErrorCodes.InvalidMethod),
+				error: new Error(`Request method "${request.method}" is not allowed`)
+			}
+		}
 
 		const requestPath = request.url.replace(/^[\w\d]+:\/\/([\w\d\-\_]+\.)*[\w\d]+(\:\d+)?\//, '/');
 

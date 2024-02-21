@@ -1,8 +1,9 @@
 
 export enum ErrorCodes {
 	InvalidPath = 1001,
-	ProcedureNotFound = 1002,
-	HandlerError = 1003,
+	InvalidMethod = 1002,
+	ProcedureNotFound = 1003,
+	HandlerError = 1004,
 };
 
 export const TypedFetchAPI_ID = {
