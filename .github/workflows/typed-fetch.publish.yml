@@ -5,6 +5,8 @@ on:
     branches: ['main']
     paths: 
       - packages/typed-fetch/package.json
+    workflows:
+      - 'typed-fetch.check'
 
 env:
   PACKAGE_DIR: packages/typed-fetch
@@ -16,7 +18,6 @@ jobs:
       run:
         working-directory: ${{ env.PACKAGE_DIR }}
     steps:
-    - uses: ./.github/workflows/typed-fetch.check.yml
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:

@@ -13,6 +13,7 @@
 		"client",
 		"server",
 		"npm-client.ts",
-		"npm-server.ts"
+		"npm-server.ts",
+		"mod.ts"
 	]
 }
