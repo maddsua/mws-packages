@@ -10,6 +10,6 @@
 		"packages/typed-rest/test",
 		"packages/typed-rest/mod.ts",
 		"packages/typed-fetch",
-		"packages/typed-env",
+		"packages/typed-env/mod.ts",
 	]
 }
