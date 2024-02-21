@@ -2,7 +2,7 @@
 	"type": "module",
 	"name": "@maddsua/typed-env",
 	"description": "ensure that your env is type safe",
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"license": "MIT",
 	"main": "./dist/env.js",
 	"types": "./dist/env.d.ts",
