@@ -1,0 +1,40 @@
+name: Typecheck TypedFetch package
+
+env:
+  PACKAGE_DIR: packages/typed-fetch
+
+on:
+  push:
+    branches: ['main']
+    paths: ['$PACKAGE_DIR/package.json']
+  pull_request:
+    branches: ['main']
+    paths: ['$PACKAGE_DIR/package.json']
+  workflow_call:
+
+jobs:
+  typecheck_deno:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: $PACKAGE_DIR
+    steps:
+    - uses: actions/checkout@v3
+    - uses: denoland/setup-deno@v1
+      with:
+        deno-version: vx.x.x
+    - run: deno check mod.ts
+
+  typecheck_node:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: $PACKAGE_DIR
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        registry-url: https://registry.npmjs.org/
+    - run: npm install
+    - run: tsc
