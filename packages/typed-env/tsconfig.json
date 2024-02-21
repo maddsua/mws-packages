@@ -10,10 +10,6 @@
 	},
 	"include": [
 		"lib",
-		"client",
-		"server",
-		"npm-client.ts",
-		"npm-server.ts",
 		"mod.ts"
 	]
 }
