@@ -1,10 +1,11 @@
 {
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ES6", "ESNext"],
-		"allowImportingTsExtensions": true,
+		"moduleResolution": "Bundler",
+		"module": "ESNext",
 		"target": "ESNext",
-		"outDir": "dist",
-		"declaration": true,
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
 		"strict": true
 	},
 	"include": [
