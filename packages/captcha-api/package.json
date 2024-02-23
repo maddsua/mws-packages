@@ -1,0 +1,35 @@
+{
+	"type": "module",
+	"name": "@maddsua/captcha-api",
+	"description": "typescript wrapper on top of reCAPTCHA API",
+	"version": "5.0.0",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./client": {
+			"import": "./dist/client/index.js",
+			"types": "./dist/client/index.d.ts"
+		},
+		"./server": {
+			"import": "./dist/server/index.js",
+			"types": "./dist/server/index.d.ts"
+		}
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"build": "tsc"
+	},
+	"files": [
+		"dist"
+	],
+	"devDependencies": {
+		"typescript": "^5.3.2"
+	}
+}

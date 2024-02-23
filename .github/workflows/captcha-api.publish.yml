@@ -1,16 +1,16 @@
-name: Publish Captcha/Client package
+name: Publish reCAPTCHA typescript API wrapper package
 
 on:
   push:
     branches: ['main']
-    paths: ['packages/captcha-client/package.json']
+    paths: ['packages/captcha-api/package.json']
 
 jobs:
   npm_publish:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: packages/captcha-client
+        working-directory: packages/captcha-api
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

@@ -12,5 +12,6 @@
 		"packages/typed-fetch",
 		"packages/typed-env/mod.ts",
 		"packages/typed-env/test",
+		"packages/captcha-api/mod.ts",
 	]
 }
