@@ -5,10 +5,17 @@ interface ValidationParams {
 	minScore?: string | number;
 };
 
-interface ValidationResult {
-	success: boolean;
+type ValidationResult = {
+	success: true;
 	score?: number;
-	error?: Error;
+	error: null;
+} | {
+	success: false;
+	score: number;
+	error: null;
+} | {
+	success: false;
+	error: Error;
 };
 
 type APIResponse = {
@@ -46,15 +53,15 @@ export const validateReCaptcha = async (params: ValidationParams): Promise<Valid
 	
 	if (!apiResponse.success) {
 		const errorText = apiResponse['error-codes']?.join(', ');
-		return { success: false, score: apiResponse.score, error: new Error(errorText) };
+		return { success: false, error: new Error(errorText) };
 	}
 
 	if (typeof params.minScore !== 'undefined' && typeof apiResponse.score === 'number') {
 		const scoreThreshold = (typeof params.minScore === 'string' ? parseFloat(params.minScore) : params.minScore) || 0.5;
 		if (apiResponse.score < scoreThreshold) {
-			return { success: false, score: apiResponse.score };
+			return { success: false, score: apiResponse.score, error: null };
 		}
 	}
 
-	return { success: true, score: apiResponse.score };
+	return { success: true, score: apiResponse.score, error: null };
 };
