@@ -1,17 +1,17 @@
 
-type ValidationParams = {
+interface ValidationParams {
 	secretKey: string;
 	challenge: string;
 	minScore?: string | number;
 };
 
-type ValidationResult = {
+interface ValidationResult {
 	success: boolean;
 	score?: number;
 	error?: Error;
 };
 
-interface APIResponse {
+type APIResponse = {
 	success: boolean;
 	'error-codes'?: string[];
 	score?: number;
@@ -34,27 +34,27 @@ export const validateReCaptcha = async (params: ValidationParams): Promise<Valid
 	requestPayload.set('secret', params.secretKey);
 	requestPayload.set('response', params.challenge);
 
-	try {
+	const apiResponse = await fetch('https://google.com/recaptcha/api/siteverify', {
+		method: 'POST',
+		headers: { 'content-type': 'application/x-www-form-urlencoded' },
+		body: requestPayload.toString()
+	}).then((data): Promise<APIResponse> => data.json()).catch(() => null);
 
+	if (!apiResponse) {
+		return { success: false, error: new Error('Invalid response from reCAPTCHA API: not a valid json') };
+	}
+	
+	if (!apiResponse.success) {
+		const errorText = apiResponse['error-codes']?.join(', ');
+		return { success: false, score: apiResponse.score, error: new Error(errorText) };
+	}
+
+	if (typeof params.minScore !== 'undefined' && typeof apiResponse.score === 'number') {
 		const scoreThreshold = (typeof params.minScore === 'string' ? parseFloat(params.minScore) : params.minScore) || 0.5;
+		if (apiResponse.score < scoreThreshold) {
+			return { success: false, score: apiResponse.score };
+		}
+	}
 
-		const result: APIResponse = await (await fetch('https://google.com/recaptcha/api/siteverify', {
-			method: 'POST',
-			headers: { 'content-type': 'application/x-www-form-urlencoded' },
-			body: requestPayload.toString()
-		})).json();
-
-		if (!result.success) throw new Error(result['error-codes']?.join(', '));
-
-		if (typeof result.score === 'number' && result.score < scoreThreshold)
-			throw new Error(`Score too low (${result.score}/${scoreThreshold})`);
-
-		return { success: true, score: result.score };
-
-	} catch (error) {
-		return {
-			success: false,
-			error: error instanceof Error ? error : new Error(JSON.stringify(error))
-		};
-	}	
+	return { success: true, score: apiResponse.score };
 };
