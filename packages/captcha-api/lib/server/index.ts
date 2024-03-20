@@ -1,11 +1,11 @@
 
-interface ValidationParams {
+export interface ValidationParams {
 	secretKey: string;
 	challenge: string;
 	minScore?: string | number;
 };
 
-type ValidationResult = {
+export type ValidationResult = {
 	success: true;
 	score?: number;
 	error: null;
@@ -18,7 +18,7 @@ type ValidationResult = {
 	error: Error;
 };
 
-type APIResponse = {
+export type APIResponse = {
 	success: boolean;
 	'error-codes'?: string[];
 	score?: number;
