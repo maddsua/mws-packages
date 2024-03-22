@@ -51,12 +51,15 @@ export const validateReCaptcha = async (params: ValidationParams): Promise<Valid
 		return { success: false, error: new Error('Invalid response from reCAPTCHA API: not a valid json') };
 	}
 	
-	if (!apiResponse.success) {
-		const errorText = apiResponse['error-codes']?.join(', ');
+	if (!apiResponse.success || apiResponse["error-codes"]?.length) {
+
+		const errorText = apiResponse['error-codes']?.join(', ') ||
+			'reCAPTCHA just returned a fail response for no reason';
+
 		return { success: false, error: new Error(errorText) };
 	}
 
-	if (typeof params.minScore !== 'undefined' && typeof apiResponse.score === 'number') {
+	if (typeof params.minScore === 'number' && typeof apiResponse.score === 'number') {
 		const scoreThreshold = (typeof params.minScore === 'string' ? parseFloat(params.minScore) : params.minScore) || 0.5;
 		if (apiResponse.score < scoreThreshold) {
 			return { success: false, score: apiResponse.score, error: null };
