@@ -2,7 +2,7 @@
 	"type": "module",
 	"name": "@maddsua/captcha-api",
 	"description": "TypeScript wrapper for reCAPTCHA API",
-	"version": "5.2.1",
+	"version": "5.3.0",
 	"license": "MIT",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",

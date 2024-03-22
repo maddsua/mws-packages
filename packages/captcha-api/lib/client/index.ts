@@ -38,20 +38,34 @@ export const loadReCaptcha = (options: LoadOptions) => {
 	return true;
 }
 
+
+interface ExecuteV3Options {
+	action?: string;
+	maxLoadingWaitTimeS?: number;
+}
+
 /**
  * Execute invisible v3 challenge
  */
-interface ExecuteV3Options {
-	action?: string;
-}
 export const executeReCaptchaV3 = (secretKey: string, options?: ExecuteV3Options) => new Promise<string>(async (resolve, reject) => {
 
-	while (!window.grecaptcha?.ready) {
+	const waitForReadyS = options?.maxLoadingWaitTimeS || 5;
+	const retryTimeout = 1000;
+	const rejectAfterNotLoadedAt = new Date().getTime() + waitForReadyS * 1000;
+
+	while (!window.grecaptcha?.ready && new Date().getTime() < rejectAfterNotLoadedAt) {
 		console.warn('Waiting for recaptcha...');
-		await new Promise<void>(resolve => setTimeout(resolve, 1000));
+		await new Promise<void>(resolve => setTimeout(resolve, retryTimeout));
 	}
 
-	window.grecaptcha.ready(() => window.grecaptcha!.execute(secretKey, {
+	if (!window.grecaptcha?.ready) {
+		reject('Failed to load recaptcha script');
+		return;
+	}
+
+	const executeCallback = () => window.grecaptcha!.execute(secretKey, {
 		action: options?.action || 'submit'
-	}).then(resolve).catch(reject));
+	}).then(resolve).catch(reject);
+
+	window.grecaptcha.ready(executeCallback);
 });
