@@ -13,7 +13,7 @@ export class StateRef<T> {
 		this._watchers.push(watcher);
 	};
 
-	unwatch(watcher: () => void) {
+	unwatch(watcher: (value: T) => void) {
 		this._watchers = this._watchers.filter(item => item !== watcher);
 	};
 

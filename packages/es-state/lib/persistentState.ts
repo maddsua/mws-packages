@@ -142,7 +142,7 @@ export class PersistentStateRef<T> {
 	/**
 	 * Stop getting state updates
 	 */
-	unwatch(watcher: () => void) {
+	unwatch(watcher: (value: T) => void) {
 		this._watchers = this._watchers.filter(item => item !== watcher);
 	};
 
