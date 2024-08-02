@@ -6,14 +6,6 @@ All packages here are under MIT license.
 
 ## NPM Packages
 
-- ## Analytics Client
-
-	A client for Google Analytics and Facebook Pixel.
-	
-	Provides typing and importable functions to push events without jumping all the hoops with global `fbq()` and `gtag()`
-	
-	[📦 npm link](https://www.npmjs.com/package/@maddsua/analytics-client)
-
 - ## Captcha client
 	
 	Provides a nice way to load and execute recaptcha in a browser
